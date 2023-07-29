@@ -21,8 +21,8 @@ def main():
     st.sidebar.title("Upload Options")
     excel_file = st.sidebar.file_uploader(
         "Upload Excel File", type=["xls", "xlsx"])
-    image_file = st.sidebar.file_uploader(
-        "Upload Image (Optional)", type=["jpg", "png", "jpeg"])
+    image_files = st.sidebar.file_uploader(
+        "Upload Image (Optional)", type=["jpg", "png", "jpeg"], accept_multiple_files=True)
 
     # CAN: Add input field for text message
     text_message = st.text_area("Enter the text message to send")
@@ -64,31 +64,45 @@ def main():
                     chat_title = driver.find_element(
                         By.XPATH, f"//div[@class='{target}']")
                     if chat_title:
-                        # CAN: Upload the image if provided
-                        if image_file is not None:
-                            attachment_icon = driver.find_element_by_xpath(
-                                "//div[@title='Attach']")
-                            attachment_icon.click()
-                            time.sleep(2)
+                        # CAN: Check if any images are uploaded
+                        if image_files:
+                            # CAN: Iterate through each uploaded image and send them one by one
+                            for image_file in image_files:
+                                # CAN: Upload the image if provided
+                                attachment_icon = driver.find_element(
+                                    By.XPATH, "//div[@title='Attach']")
+                                attachment_icon.click()
+                                time.sleep(10)
 
-                            image_input = driver.find_element_by_xpath(
-                                "//input[@accept='image/*,video/mp4,video/3gpp,video/quicktime']")
-                            image_input.send_keys(image_file.name)
-                            time.sleep(2)
+                                image_input = driver.find_element_by_xpath(
+                                    "//input[@accept='image/*,video/mp4,video/3gpp,video/quicktime']")
+                                image_input.send_keys(image_file.name)
+                                time.sleep(15)
 
-                        # CAN: Enter the text message
-                        message_box = driver.find_element(
-                            By.XPATH, message_box_path)
-                        message_box.send_keys(text_message, Keys.ENTER)
+                                # CAN: Enter the text message
+                                message_box = driver.find_element(
+                                    By.XPATH, message_box_path)
+                                message_box.send_keys(text_message, Keys.ENTER)
 
-                        # # CAN: Send the message
-                        # send_button = driver.find_element(By.XPATH,
-                        #                                   "//span[@data-icon='send']")
-                        # send_button.click()
+                                # # CAN: Send the message
+                                # send_button = driver.find_element(By.XPATH,
+                                #                                   "//span[@data-icon='send']")
+                                # send_button.click()
 
-                        # CAN: Wait for a few seconds before proceeding to the next number
-                        time.sleep(15)
+                                # CAN: Wait for a few seconds before proceeding to the next number
+                                time.sleep(15)
+                        else:
+                            message_box = driver.find_element(
+                                By.XPATH, message_box_path)
+                            message_box.send_keys(text_message, Keys.ENTER)
 
+                            # # CAN: Send the message
+                            # send_button = driver.find_element(By.XPATH,
+                            #                                   "//span[@data-icon='send']")
+                            # send_button.click()
+
+                            # CAN: Wait for a few seconds before proceeding to the next number
+                            time.sleep(15)
                 except Exception as e:
                     # CAN: Display any errors or exceptions on the web page
                     st.error(
