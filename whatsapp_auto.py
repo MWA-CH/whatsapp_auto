@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+from deta import Deta
 
 
 # CAN: Define the Streamlit web app
@@ -67,22 +68,50 @@ def main():
                         # CAN: Check if any images are uploaded
                         if image_files:
                             # CAN: Iterate through each uploaded image and send them one by one
+                            # pic_names = []
                             for image_file in image_files:
                                 # CAN: Upload the image if provided
+                                # print(image_file.name)
                                 attachment_icon = driver.find_element(
                                     By.XPATH, "//div[@title='Attach']")
                                 attachment_icon.click()
+                                time.sleep(5)
+
+                                # image_input = driver.find_element(
+                                #     By.XPATH, "//input[@accept='image/*,video/mp4,video/3gpp,video/quicktime']")
+                                # file = image_file.read()
+                                # image_result = open(image_file.name, 'wb')
+                                # image_result.write(file)
+                                # pic_names.append(image_file.name)
+                                # image_result.close()
+
+                                image_input = driver.find_element(
+                                    By.XPATH, "//input[@type='file']")
+
+                                # bytes_data = image_file.getvalue()
+                                # image_input.send_keys(st.image(bytes_data))
+
+                                image_input.send_keys(
+                                    '/Users/MWA/Desktop/PythonScripts/whatsapp_auto/screenshot.png')
+
                                 time.sleep(10)
 
-                                image_input = driver.find_element_by_xpath(
-                                    "//input[@accept='image/*,video/mp4,video/3gpp,video/quicktime']")
-                                image_input.send_keys(image_file.name)
+                                message_box = driver.find_element(
+                                    By.XPATH, "//p[@class='selectable-text copyable-text iq0m558w g0rxnol2']")
+
+                                message_box.send_keys(text_message)
+
+                                # CAN: Send the message
+                                send_button = driver.find_element(
+                                    By.XPATH, "//span[@data-icon='send']")
+                                send_button.click()
+
                                 time.sleep(15)
 
                                 # CAN: Enter the text message
-                                message_box = driver.find_element(
-                                    By.XPATH, message_box_path)
-                                message_box.send_keys(text_message, Keys.ENTER)
+                                # message_box = driver.find_element(
+                                #     By.XPATH, message_box_path)
+                                # message_box.send_keys(text_message, Keys.ENTER)
 
                                 # # CAN: Send the message
                                 # send_button = driver.find_element(By.XPATH,
@@ -90,7 +119,7 @@ def main():
                                 # send_button.click()
 
                                 # CAN: Wait for a few seconds before proceeding to the next number
-                                time.sleep(15)
+                                # time.sleep(15)
                         else:
                             message_box = driver.find_element(
                                 By.XPATH, message_box_path)
