@@ -13,7 +13,7 @@ import os
 # Define the Streamlit web app
 def main():
     # Set the page title and description
-    st.title("WhatsApp Message Sender By Artisan Innovattion Technologies")
+    st.title("WhatsApp Message Sender By Artisan Innovation Technologies")
     st.subheader("Send WhatsApp messages with images and text")
 
     # Add file upload options for Excel sheet and image
