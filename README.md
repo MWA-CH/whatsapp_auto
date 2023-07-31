@@ -1,6 +1,6 @@
 # WhatsApp Message Sender
 
-![Streamlit App](screenshot.png)
+![Streamlit App](Screenshot.png)
 
 ## Description
 This Streamlit app allows users to send WhatsApp messages with images and text to multiple phone numbers using an Excel sheet as input. It utilizes Selenium for web automation to interact with the WhatsApp Web interface.
