@@ -13,7 +13,7 @@ import os
 # Define the Streamlit web app
 def main():
     # Set the page title and description
-    st.title("WhatsApp Message Sender")
+    st.title("WhatsApp Message Sender By Artisan Innovattion Technologies")
     st.subheader("Send WhatsApp messages with images and text")
 
     # Add file upload options for Excel sheet and image
@@ -22,6 +22,15 @@ def main():
         "Upload Excel File", type=["xls", "xlsx"])
     image_files = st.sidebar.file_uploader(
         "Upload Image (Optional)", type=["jpg", "png", "jpeg"], accept_multiple_files=True)
+
+    # Hide footer made with streamlit
+    hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
     # Save images in folder
     if image_files:
