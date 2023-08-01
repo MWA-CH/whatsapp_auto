@@ -115,8 +115,9 @@ def main():
                 except Exception as e:
                     # Display any errors or exceptions on the web page
                     st.error(
-                        f"Error sending message to {phone_number}: {str(e)}")
-
+                        f" Phone Number not valid:  {phone_number}")
+                    # st.error(
+                    #     f"Error sending message to {phone_number}: {str(e)}")
             # Close the browser after sending messages to all numbers
             driver.quit()
 
