@@ -90,9 +90,10 @@ def main():
                                 attachment_icon = driver.find_element(
                                     By.XPATH, "//div[@title='Attach']")
                                 attachment_icon.click()
-                                time.sleep(10)
-                                image_input = driver.find_element(
-                                    By.XPATH, "//input[@type='file']")
+                                time.sleep(15)
+                                input_elements = driver.find_elements(
+                                    By.TAG_NAME, 'input')
+                                image_input = input_elements[1]
                                 name = pic_names[i]
                                 path = os.path.abspath(
                                     "/Users/MWA/Desktop/PythonScripts/whatsapp_auto/" + name)
@@ -114,10 +115,10 @@ def main():
                             time.sleep(10)
                 except Exception as e:
                     # Display any errors or exceptions on the web page
-                    st.error(
-                        f" Phone Number not valid:  {phone_number}")
                     # st.error(
-                    #     f"Error sending message to {phone_number}: {str(e)}")
+                    #     f" Phone Number not valid:  {phone_number}")
+                    st.error(
+                        f"Error sending message to {phone_number}: {str(e)}")
             # Close the browser after sending messages to all numbers
             driver.quit()
 
